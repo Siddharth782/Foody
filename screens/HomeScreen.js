@@ -2,6 +2,8 @@ import React, { useLayoutEffect } from 'react';
 import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ChevronDownIcon, UserIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from "react-native-heroicons/outline";
+import Categories from '../components/Categories';
+import FeaturedRow from '../components/FeaturedRow';
 
 function HomeScreen() {
 
@@ -19,12 +21,10 @@ function HomeScreen() {
     }, [])
 
     return (
-        <SafeAreaView className="bg-white pt-10">
-            {/* <Text className="text-red-500"> */}
-
+        <SafeAreaView className="bg-white py-10">
 
             {/* Header */}
-            <View className="flex-row pb-3 items-center mx-4 space-x-2 px-1">
+            <View className="flex-row pb-3 items-center mx-4 space-x-2">
 
 
                 <Image
@@ -44,7 +44,7 @@ function HomeScreen() {
             </View>
 
             {/* Search Box */}
-            <View className='flex-row items-center space-x-2 pb-2 mx-4 px-1'>
+            <View className='flex-row items-center space-x-2 pb-2 mx-4'>
 
                 <View className="flex-row flex-1 space-x-2 bg-gray-200 p-3">
 
@@ -58,7 +58,39 @@ function HomeScreen() {
 
             </View>
 
-            {/* </Text> */}
+            {/* Body */}
+            <ScrollView className="bg-gray-100"
+                contentContainerStyle={{
+                    paddingBottom: 100,
+                }}
+            >
+
+                {/* Categories */}
+                <Categories />
+
+                {/* Featured Restaurants */}
+                <FeaturedRow
+                    id="123"
+                    title="Featured"
+                    description="Paid placements"
+                />
+
+                {/* Tasty Discounts*/}
+                <FeaturedRow
+                    id="1234"
+                    title="Tasty Discounts"
+                    description="Everyone's favorite juicy discounts"
+                />
+
+                {/* Offers Near You */}
+                <FeaturedRow
+                    id="12"
+                    title="Offers"
+                    description="Local Restaurants"
+                />
+            </ScrollView>
+
+
         </SafeAreaView>
     );
 };
