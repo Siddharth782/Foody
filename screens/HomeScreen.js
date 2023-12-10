@@ -1,13 +1,22 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ChevronDownIcon, UserIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from "react-native-heroicons/outline";
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
+import { createClient } from '@sanity/client'
 
 function HomeScreen() {
+    const [featuredCategories, setFeaturedCategories] = useState([]);
 
     const navigation = useNavigation();
+
+    const client = createClient({
+        projectId: "ge3jcjdv",
+        dataset: "production",
+        useCdn: true, // set to `false` to bypass the edge cache
+        apiVersion: '2023-12-09',
+    })
 
     useLayoutEffect(() => {
 
@@ -19,6 +28,20 @@ function HomeScreen() {
 
         // };
     }, [])
+
+    useEffect(() => {
+        client?.fetch(`
+        *[_type == "featured"] {
+            ...,
+            restaurants[] -> {
+              ...,
+              dishes[] ->
+            }
+          }
+        `).then((data) => { setFeaturedCategories(data) });
+    }, [])
+
+    // console.log(featuredCategories);
 
     return (
         <SafeAreaView className="bg-white py-10">
@@ -50,7 +73,7 @@ function HomeScreen() {
 
                     <MagnifyingGlassIcon color="gray" size="20" />
 
-                    <TextInput placeholder='Restaurants and Cuisines' keyboardType="default" />
+                    <TextInput placeholder='Restaurants and Cuisines' inputMode="search" />
 
                 </View>
 
@@ -69,25 +92,16 @@ function HomeScreen() {
                 <Categories />
 
                 {/* Featured Restaurants */}
-                <FeaturedRow
-                    id="123"
-                    title="Featured"
-                    description="Paid placements"
-                />
 
-                {/* Tasty Discounts*/}
-                <FeaturedRow
-                    id="1234"
-                    title="Tasty Discounts"
-                    description="Everyone's favorite juicy discounts"
-                />
+                {featuredCategories?.map(category => (
+                    <FeaturedRow
+                        id={category?._id}
+                        key={category?._id}
+                        title={category?.name}
+                        description={category?.short_description}
+                    />
+                ))}
 
-                {/* Offers Near You */}
-                <FeaturedRow
-                    id="12"
-                    title="Offers"
-                    description="Local Restaurants"
-                />
             </ScrollView>
 
 
