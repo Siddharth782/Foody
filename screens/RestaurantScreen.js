@@ -13,7 +13,7 @@ const RestaurantScreen = () => {
     const { item } = route?.params;
 
     // console.log("The item is here");
-    console.log(item?.dishes[0].image);
+    // console.log(item?.dishes[0].image);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -31,8 +31,8 @@ const RestaurantScreen = () => {
                     <Image source={{ uri: urlFor(item?.imgUrl).url() }}
                         className="w-full h-56 bg-gray-300 p-4" />
 
-                    <Pressable onPress={() => navigation.goBack()} className="absolute top-15 left-4 p-2 bg-gray-100 rounded" >
-                        <ArrowLeftIcon size={20} color="00CCBB" />
+                    <Pressable onPress={() => navigation.goBack()} className="absolute left-3 p-2 bg-gray-100 rounded top-8" >
+                        <ArrowLeftIcon size={20} color="#00CCBB" />
                     </Pressable>
 
                 </View>
