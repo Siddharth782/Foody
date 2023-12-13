@@ -11,7 +11,7 @@ const RestaurantCards = (item) => {
     const navigation = useNavigation();
 
     return (
-        <Pressable className="bg-white mr-3 shadow" onPress={() => navigation.navigate("Restaurant", { item })} >
+        <Pressable className="bg-white mr-3 shadow" onPress={() => navigation.navigate("Restaurant", { restaurant: item })} >
             <Image source={{ uri: urlFor(item?.imgUrl).url() }} className="h-36 w-64 rounded-sm" />
 
             <View className="px-3 pb-4">

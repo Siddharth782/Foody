@@ -1,10 +1,11 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from "react-native";
+import { View, Text, Image, TextInput, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ChevronDownIcon, UserIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from "react-native-heroicons/outline";
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import { createClient } from '@sanity/client'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function HomeScreen() {
     const [featuredCategories, setFeaturedCategories] = useState([]);
@@ -44,7 +45,7 @@ function HomeScreen() {
     // console.log(featuredCategories);
 
     return (
-        <SafeAreaView className="bg-white py-10">
+        <SafeAreaView className="bg-white pt-3 pb-10 px-0">
 
             {/* Header */}
             <View className="flex-row pb-3 items-center mx-4 space-x-2">
