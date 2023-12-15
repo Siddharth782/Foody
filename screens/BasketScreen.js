@@ -130,9 +130,11 @@ const BasketScreen = () => {
                         <Text>$ {(4.99 + 1.1 * basketTotal).toFixed(2)}</Text>
                     </View>
 
+                    <Pressable onPress={() => navigation.navigate('OrderScreen')} className="bg-[#00CCBB] rounded justify-center">
+                        <Text className="text-lg text-center text-white font-bold">Place Order</Text>
+                    </Pressable>
+
                 </View>
-
-
 
             </View>
 
